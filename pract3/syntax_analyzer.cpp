@@ -46,7 +46,6 @@ struct LexemeTable {
             cout << ", value: " << token.value << '\n';
         }
     }
-
 };
 
 class Lexer {
