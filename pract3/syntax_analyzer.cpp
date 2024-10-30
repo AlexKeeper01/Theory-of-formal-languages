@@ -194,6 +194,7 @@ public:
                     lexemeTable.addToken(currentToken);
                     currentToken.value.clear();
                     currentState = State::H;
+                    file.putback(c);
                 }
                 else {
                     cout << "Wrong num: " << currentToken.value << '\n';
