@@ -224,11 +224,11 @@ public:
                     currentToken.value.clear();
                     currentState = State::H;
                 }
-                else if (c == '<' || c == '>' || c == '=' || c == '!' || c == '*' || c == '/' || c == '&&' || c == '+' || c == '-' || c == '||') {
+                else if (c == '<' || c == '>' || c == '=' || c == '!' || c == '*' || c == '/' || c == '&' || c == '+' || c == '-' || c == '|') {
                     currentToken.value += c;
                 }
                 else {
-                    if (currentToken.value == "/*" || currentToken.value == "*/") {
+                    if (currentToken.value == "/*") {
                         currentState = State::COMM;
                     }
                     else {
