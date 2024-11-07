@@ -3,6 +3,6 @@ dim a, b, i integer;
 a := 1;
 b := 2; /* lol gdz */
 for i := 0 to i <= 12D step i := i + 1
-a := b * i
-next;
+  a := b * i;
+next
 }
