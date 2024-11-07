@@ -6,7 +6,7 @@
 using namespace std;
 
 const int NUM_OF_KWORDS = 15;
-string keywords[NUM_OF_KWORDS] = { "dim", "integer", "real", "boolean", "if", "else", "for", "to", "step", "next", "while", "readln", "writeln", "true", "false"};
+string keywords[NUM_OF_KWORDS] = { "dim", "integer", "real", "boolean", "if", "else", "for", "to", "step", "next", "while", "readln", "writeln", "true", "false" };
 
 enum class State { H, ID, NM, ASGN, DLM, ERR, COMM };
 enum class TokenType { KWORD, IDENT, NUM, OPER, DELIM };
