@@ -226,17 +226,26 @@ public:
                 }
                 else if (c == '<' || c == '>' || c == '=' || c == '!' || c == '*' || c == '/' || c == '&' || c == '+' || c == '-' || c == '|') {
                     currentToken.value += c;
+                    
+                    if (file.peek() == '=') {
+                        file.get(c);
+                        currentToken.value += c;
+                    } else if ((currentToken.value == "&" && file.peek() == '&') || (currentToken.value == "|" && file.peek() == '|')) {
+                        file.get(c);
+                        currentToken.value += c;
+                    }
+
+                    if (currentToken.value == "/" && file.peek() == '*') {
+                        file.get(c);
+                        currentToken.value += c;
+                        currentState = State::COMM;
+                    } 
                 }
                 else {
-                    if (currentToken.value == "/*") {
-                        currentState = State::COMM;
-                    }
-                    else {
-                        currentToken.type = TokenType::OPER;
-                        lexemeTable.addToken(currentToken);
-                        currentToken.value.clear();
-                        currentState = State::H;
-                    }
+                    currentToken.type = TokenType::OPER;
+                    lexemeTable.addToken(currentToken);
+                    currentToken.value.clear();
+                    currentState = State::H;
                 }
                 break;
 
