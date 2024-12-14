@@ -15,7 +15,8 @@ enum lex_type {
     LEX_ID, LEX_NUM, LEX_ASSIGN, LEX_EQ, LEX_NEQ, LEX_LT,
     LEX_LEQ, LEX_GT, LEX_GEQ, LEX_PLUS, LEX_MINUS, LEX_OR,
     LEX_TIMES, LEX_DIV, LEX_AND, LEX_NOT, LEX_BEGIN, LEX_END,
-    LEX_FIN, LEX_DELIM
+    LEX_FIN, LEX_RBRACE, LEX_LBRACE, LEX_COMMA, LEX_SEMICOLON,
+    LEX_LPAREN, LEX_RPAREN
 };
 
 struct Lex {
@@ -202,7 +203,6 @@ private:
                 advance();
                 return Lex(LEX_OR, result);
             }
-            return Lex(LEX_DELIM, result);
         }
 
         if (result == "&") {
@@ -211,7 +211,6 @@ private:
                 advance();
                 return Lex(LEX_AND, result);
             }
-            return Lex(LEX_DELIM, result);
         }
 
         if (result == "+") return Lex(LEX_PLUS, result);
@@ -219,14 +218,19 @@ private:
         if (result == "*") return Lex(LEX_TIMES, result);
         if (result == "/") return Lex(LEX_DIV, result);
 
-        return Lex(LEX_DELIM, result);
+        throw runtime_error("Unknown operator: " + result);
     }
 
     Lex parse_delimiter() {
         string result(1, current_char);
         advance();
         if (result == "(" || result == ")" || result == ";" || result == "{" || result == "}" || result == ",") {
-            return Lex(LEX_DELIM, result);
+            if (result == "(") return Lex(LEX_LPAREN, result);
+            if (result == ")") return Lex(LEX_RPAREN, result);
+            if (result == ";") return Lex(LEX_SEMICOLON, result);
+            if (result == ",") return Lex(LEX_COMMA, result);
+            if (result == "{") return Lex(LEX_LBRACE, result);
+            if (result == "}") return Lex(LEX_RBRACE, result);
         }
         else {
             throw runtime_error("Unknown symbol: " + result);
@@ -311,10 +315,17 @@ const char* lex_type_description(lex_type type) {
     case LEX_BEGIN: return "BEGIN";
     case LEX_END: return "END";
     case LEX_FIN: return "FIN";
-    case LEX_DELIM: return "DELIMITER";
+    case LEX_RBRACE: return "RIGHT BRACE";
+    case LEX_LBRACE: return "LEFT BRACE";
+    case LEX_COMMA: return "COMMA";
+    case LEX_SEMICOLON: return "SEMICOLON";
+    case LEX_LPAREN: return "LEFT PARENTHESIS";
+    case LEX_RPAREN: return "RIGHT PARENTHESIS";
     default: return "UNKNOWN";
     }
+
 }
+
 
 int main() {
     try {
