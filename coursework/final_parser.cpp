@@ -515,13 +515,10 @@ public:
         expect(LEX_FOR);
         assignment();
         expect(LEX_TO);
-        lex_type expr_type = expression();
-        if (expr_type != LEX_INTEGER) {
-            throw runtime_error("Semantic error: Loop bounds must be integers.");
-        }
+        check_boolean_expression();
         if (current().type == LEX_STEP) {
             advance();
-            expr_type = expression();
+            lex_type expr_type = expression();
             if (expr_type != LEX_INTEGER) {
                 throw runtime_error("Semantic error: Loop step must be an integer.");
             }
