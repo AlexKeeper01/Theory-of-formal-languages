@@ -225,7 +225,12 @@ private:
     Lex parse_delimiter() {
         string result(1, current_char);
         advance();
-        return Lex(LEX_DELIM, result);
+        if (result == "(" || result == ")" || result == ";" || result == "{" || result == "}" || result == ",") {
+            return Lex(LEX_DELIM, result);
+        }
+        else {
+            throw runtime_error("Unknown symbol: " + result);
+        }
     }
 
 public:
