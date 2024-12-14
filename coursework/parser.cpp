@@ -150,7 +150,7 @@ private:
             }
         }
         else {
-            throw runtime_error("Lexical error: Invalid number " + result);
+            throw runtime_error("Lexical error: Invalid number '" + result + "'.");
         }
     }
 
@@ -228,7 +228,7 @@ private:
         if (result == "*") return Lex(LEX_TIMES, result);
         if (result == "/") return Lex(LEX_DIV, result);
 
-        throw runtime_error("Lexical error: Unknown operator: " + result);
+        throw runtime_error("Lexical error: Unknown operator: '" + result + "'.");
     }
 
     Lex parse_delimiter() {
@@ -243,7 +243,7 @@ private:
             if (result == "}") return Lex(LEX_RBRACE, result);
         }
         else {
-            throw runtime_error("Lexical error: Unknown symbol: " + result);
+            throw runtime_error("Lexical error: Unknown symbol: '" + result + "'.");
         }
     }
 
@@ -251,7 +251,7 @@ public:
     explicit Lexer(const string& filename) {
         file.open(filename);
         if (!file.is_open()) {
-            throw runtime_error("File not found or cannot be opened");
+            throw runtime_error("File not found or cannot be opened.");
         }
         advance();
     }
@@ -363,7 +363,7 @@ private:
 
     void expect(lex_type type) {
         if (current().type != type) {
-            throw runtime_error("Syntax error: Expected " + string(lex_type_description(type)) + ", but found " + lex_type_description(current().type));
+            throw runtime_error("Syntax error: Expected " + string(lex_type_description(type)) + ", but found " + lex_type_description(current().type) + ".");
         }
         advance();
     }
