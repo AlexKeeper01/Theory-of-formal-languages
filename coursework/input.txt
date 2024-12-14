@@ -1,0 +1,37 @@
+{
+dim a, b, c, d, i integer
+begin
+    a := 5 + 5;
+    b := 1010B;
+    c := 16ADH;
+    d := 23 + a + b
+end
+
+dim x, y, z real
+x := 3.14
+y := .75
+z := 12.35E+3
+
+dim t, f boolean
+t := true
+f := false
+
+if ((a == b) ||  (b == c))
+    if (!t) /* some comment */
+        writeln z
+    else
+        writeln x
+else
+    a := a + 1
+
+for i := 0 to i < 10 step 1
+    readln a
+next
+
+a := 0
+while (a != 10)
+    a := a + 1
+    writeln a, b
+
+
+}
